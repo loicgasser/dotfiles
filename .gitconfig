@@ -1,0 +1,12 @@
+[user]
+  name = loicgasser
+  email = loicgasser4@gmail.com
+[color]
+  ui = true
+[core]
+  pager = more
+  editor = vi
+  autocrlf = input
+[alias]
+  lg = log -p
+  logbranch = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
