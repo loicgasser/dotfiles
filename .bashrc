@@ -23,6 +23,11 @@ if [ -d ~/bin ] ; then
    PATH=~/bin:"${PATH}"
 fi
 
+if [ -f $HOME/.ssh/saveagent ]; then
+  echo "Saving agent"
+  . $HOME/.ssh/saveagent
+fi
+
 if [ -f /etc/bash_completion ]; then
   . /etc/bash_completion
 fi
