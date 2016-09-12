@@ -4,7 +4,7 @@ cp -f .gitconfig ~/
 cp -f .tmux.conf ~/
 cp -f .vimrc ~/
 cp -f .bash_profile ~/
-cp -f saveagent.sh ~/ssh/saveagent
+cp -f saveagent.sh ~/.ssh/saveagent
 if [ -f ~/.bashrc ]; then
     mv ~/.bashrc ~/bashrc
     cat ~/bashrc .bashrc > ~/.bashrc
