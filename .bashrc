@@ -57,7 +57,7 @@ PURPLE_BOLD='\e[1;35m'  # Purple - Bold
 CYAN_BOLD='\e[1;36m'    # Cyan - Bold
 WHITE_BOLD='\e[1;37m'   # White - Bold
 RESET='\e[0m'         # Text Reset
-export PS1="\[\033[01;32m\]\u@\h (custom)\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] ${YELLOW}\$(parse_git_branch) ${WHITE}\$ "
+export PS1="\[\033[01;32m\]\u@\h (custom)\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] ${YELLOW}\$(parse_git_branch) ${WHITE}\n$ "
 
 MY_SOCK="/tmp/ssh-agent-$USER-screen"
 if test $SSH_AUTH_SOCK && [ $SSH_AUTH_SOCK != $MY_SOCK ]
