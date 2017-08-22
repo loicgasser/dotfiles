@@ -40,24 +40,10 @@ parse_git_branch()
     echo "**($BRANCH)**"
   fi
 }
-BLACK='\e[0;30m'      # Black - Regular
-RED='\e[0;31m'        # Red
-GREEN='\e[0;32m'      # Green
 YELLOW='\e[0;33m'     # Yellow
-BLUE='\e[0;34m'       # Blue
-PURPLE='\e[0;35m'     # Purple
-CYAN='\e[0;36m'       # Cyan
 WHITE='\e[0;37m'      # White
-BLACK_BOLD='\e[1;30m'   # Black - Bold
-RED_BOLD='\e[1;31m'     # Red - Bold
-GREEN_BOLD='\e[1;32m'   # Green - Bold
-YELLOW_BOLD='\e[1;33m'  # Yellow - Bold
-BLUE_BOLD='\e[1;34m'    # Blue - Bold
-PURPLE_BOLD='\e[1;35m'  # Purple - Bold
-CYAN_BOLD='\e[1;36m'    # Cyan - Bold
-WHITE_BOLD='\e[1;37m'   # White - Bold
 RESET='\e[0m'         # Text Reset
-export PS1="\[\033[01;32m\]\u@\h (custom)\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] ${YELLOW}\$(parse_git_branch) ${WHITE}\n$ "
+export PS1="\[\033[01;32m\]\u@\h ($USER)\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] ${YELLOW}\$(parse_git_branch) ${WHITE}\n$ "
 
 MY_SOCK="/tmp/ssh-agent-$USER-screen"
 if test $SSH_AUTH_SOCK && [ $SSH_AUTH_SOCK != $MY_SOCK ]

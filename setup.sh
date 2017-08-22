@@ -14,4 +14,9 @@ else
 fi
 touch ~/.pgpass
 chmod go-rwx ~/.pgpass
+touch ~/.boto
+chmod go-rwx ~/.boto
+mkdir ~/.aws
+touch ~/.aws/credentials
+chmod go-rwx ~/.aws/credentials
 curl -k https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash

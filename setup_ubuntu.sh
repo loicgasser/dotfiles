@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Display distribution version
+lsb_release -a
+
 # Enable Ubuntu repos
 sudo add-apt-repository main
 sudo add-apt-repository universe
@@ -10,7 +13,7 @@ sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58
 sudo apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
 
 sudo apt-get update
-sudo apt-get install python-pip python-dev nginx
+sudo apt-get install -y python-pip python-dev nginx build-essential libjpeg-dev gettext-base tmux pypy-dev libpq-dev postgresql
 # Install virtualenv via pip
 sudo pip install virtualenv
 
@@ -19,5 +22,3 @@ sudo apt-get install -y docker-engine docker-compose
 #sudo systemctl status docker
 # Avoid typing sudo whenever you run a docker
 sudo usermod -aG docker $(whoami)
-
-sudo ufw allow 'Nginx Full'
