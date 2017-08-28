@@ -13,7 +13,7 @@ sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58
 sudo apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
 
 sudo apt-get update
-sudo apt-get install -y python-pip python-dev nginx build-essential libjpeg-dev gettext-base tmux pypy-dev libpq-dev postgresql
+sudo apt-get install -y python-pip python-dev python3-dev nginx build-essential libjpeg-dev gettext-base tmux pypy-dev libpq-dev postgresql
 # Install virtualenv via pip
 sudo pip install virtualenv
 
