@@ -1,3 +1,4 @@
+# Generated bashrc from myconfs
 # ~/.bashrc: executed by bash(1) for non-login shells.
 
 export LESS='-q'
