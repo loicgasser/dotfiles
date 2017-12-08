@@ -24,6 +24,8 @@ if [ -d ~/bin ] ; then
    PATH=~/bin:"${PATH}"
 fi
 
+PATH=$(npm bin):$PATH
+
 if [ -f $HOME/.ssh/saveagent ]; then
   echo "Saving agent"
   . $HOME/.ssh/saveagent
