@@ -1,9 +1,9 @@
 #!/bin/sh
 
 echo 'Hi bro, I am gona tweak your home a notch, but not too much :D !!'
+echo "Working from $BASEDIR ..."
 
 BASEDIR=$(pwd)
-echo $BASEDIR
 
 ### Create symlinks for dotgile
 for file in $(ls ${BASEDIR}/dotfiles)
@@ -24,6 +24,13 @@ touch ~/.aws/credentials
 chmod go-rwx ~/.aws/credentials
 if [ ! ~/.git-completion.bash ]; then
   curl -k https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+fi
+
+### SSH and tmux
+mkdir -p ~/.ssh
+if [ ! -f ~/.ssh/rc ]; then
+  echo "Adding ssh rc script"
+  cp -f scripts/rc ~/.ssh/rc
 fi
 
 ### Vim tweaks with pathogen and synastic
