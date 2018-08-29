@@ -1,46 +1,92 @@
-#!/bin/sh
-
-echo 'Hi bro, I am gona tweak your home a notch, but not too much :D !!'
-echo "Working from $BASEDIR ..."
+#!/bin/bash
 
 BASEDIR=$(pwd)
 
-### Create symlinks for dotgile
-for file in $(ls ${BASEDIR}/dotfiles)
-do
-  if [ ! -f $BASEDIR/dotfiles/$file ]; then
-    echo "Setting up $file ..."
-    ln -s $BASEDIR/dotfiles/$file ~/
+# return 1 if global command line program installed, else 0
+program_is_installed () {
+  # set to 1 initially
+  local return_=1
+  # set to 0 if not found
+  type $1 >/dev/null 2>&1 || { local return_=0; }
+  # return value
+  echo "$return_"
+}
+
+setup () {
+  echo 'Hi bro, I am gona tweak your home a notch, but not too much :D !!'
+  echo "Working from $BASEDIR ..."
+  ### Create symlinks for dotgile
+  for file in $(ls -A ${BASEDIR}/dotfiles)
+  do
+    if [ ! -f ~/$file ]; then
+      echo "Setting up $file ..."
+      ln -s $BASEDIR/dotfiles/$file ~/
+    fi
+  done
+  if [ ! ~/.git-completion.bash ]; then
+    curl -k https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
   fi
-done
 
-### Create AWS/PostgreSQL related file
-touch ~/.pgpass
-chmod go-rwx ~/.pgpass
-touch ~/.boto
-chmod go-rwx ~/.boto
-mkdir -p ~/.aws
-touch ~/.aws/credentials
-chmod go-rwx ~/.aws/credentials
-if [ ! ~/.git-completion.bash ]; then
-  curl -k https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
-fi
+  ### Create AWS/PostgreSQL related file
+  touch ~/.pgpass
+  chmod go-rwx ~/.pgpass
+  touch ~/.boto
+  chmod go-rwx ~/.boto
+  mkdir -p ~/.aws
+  touch ~/.aws/credentials
+  chmod go-rwx ~/.aws/credentials
 
-### SSH and tmux
-mkdir -p ~/.ssh
-if [ ! -f ~/.ssh/rc ]; then
-  echo "Adding ssh rc script"
-  cp -f scripts/rc ~/.ssh/rc
-fi
+  ### SSH and tmux
+  mkdir -p ~/.ssh
+  if [ ! -f ~/.ssh/rc ]; then
+    echo "Adding ssh rc script ..."
+    cp -f scripts/rc ~/.ssh/rc
+  fi
 
-### Vim tweaks with pathogen and synastic
-if [ ! -f ~/.vim/autoload/pathogen.vim ]; then
-  mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-fi
+  ### Vim tweaks with pathogen and synastic
+  mkdir -p ~/.vim/autoload ~/.vim/bundle
+  if [ ! -f ~/.vim/autoload/pathogen.vim ]; then
+    echo "Setting up pathogen ..."
+    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+  fi
 
-if [ ! -d ~/.vim/bundle/syntastic ]; then
-  cd ~/.vim/bundle
-  git clone https://github.com/scrooloose/syntastic.git
-  npm install jshint
+  NODE_INSTALLED=$(program_is_installed node)
+  if [ ! -d ~/.vim/bundle/syntastic ] && [ $NODE_INSTALLED = "1" ]; then
+    echo "Setting up syntastic ..."
+    cd ~/.vim/bundle
+    git clone https://github.com/scrooloose/syntastic.git
+    npm install jshint
+  fi
+}
+
+clean () {
+  for file in $(ls -A ${BASEDIR}/dotfiles)
+  do
+    echo "Removing ~/$file"
+    rm -f ~/$file
+  done
+  files=("$HOME/.pgpass" "$HOME/.boto" "$HOME/.ssh/rc")
+  for file in "${files[@]}"
+  do
+    if [ -f $file ]; then
+      echo "Removing $file"
+      chmod go+rwx $file
+      rm -f $file
+    fi
+  done
+  direcs=("$HOME/.aws" "$HOME/.vim/autoload" "$HOME/.vim/bundle")
+  for direc in "${direcs[@]}"
+  do
+    if [ -d $direc ]; then
+      echo "Removing $direc"
+      chmod go+rwx $direc
+      rm -rf $direc
+    fi
+  done
+}
+
+if [ "$1" = "clean" ]; then
+  clean
+else
+  setup
 fi
