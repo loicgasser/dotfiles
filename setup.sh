@@ -42,10 +42,6 @@ setup () {
   done
   add_source_bash_profile
 
-  if [ ! ~/.git-completion.bash ]; then
-    curl -k https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
-  fi
-
   ### Create AWS/PostgreSQL related file
   touch ~/.pgpass
   chmod go-rwx ~/.pgpass
