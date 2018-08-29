@@ -2,13 +2,17 @@
 
 echo 'Hi bro, I am gona tweak your home a notch, but not too much :D !!'
 
-BASEDIR=$(dirname "$0")
+BASEDIR=$(pwd)
+echo $BASEDIR
 
 ### Create symlinks for dotgile
-ln -s ${BASEDIR}/.gitconfig ~/
-ln -s ${BASEDIR}/.tmux.conf ~/
-ln -s ${BASEDIR}/.vimrc ~/
-ln -s ${BASEDIR}/.bash_profile ~/
+for file in $(ls ${BASEDIR}/dotfiles)
+do
+  if [ ! -f $BASEDIR/dotfiles/$file ]; then
+    echo "Setting up $file ..."
+    ln -s $BASEDIR/dotfiles/$file ~/
+  fi
+done
 
 ### Create AWS/PostgreSQL related file
 touch ~/.pgpass
