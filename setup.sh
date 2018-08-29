@@ -12,10 +12,27 @@ program_is_installed () {
   echo "$return_"
 }
 
+add_source_bash_profile () {
+  local lastline=$(tail -n -1 $HOME/.bashrc)
+  if [ "source $HOME/.bash_profile" != "$lastline" ]; then
+    echo "Add: source \$HOME/.bash_profile ..."
+    echo "source $HOME/.bash_profile" >> $HOME/.bashrc
+  fi
+}
+
+remove_source_bash_profile () {
+  local lastline=$(tail -n -1 $HOME/.bashrc)
+  if [ "source $HOME/.bash_profile" == "$lastline" ]; then
+    echo "Remove: source \$HOME/.bash_profile ..."
+    sed -i '$ d' $HOME/.bashrc
+  fi
+}
+
 setup () {
   echo 'Hi bro, I am gona tweak your home a notch, but not too much :D !!'
   echo "Working from $BASEDIR ..."
   ### Create symlinks for dotgile
+  rm -f ~/.profile ~/.bash_profile
   for file in $(ls -A ${BASEDIR}/dotfiles)
   do
     if [ ! -f ~/$file ]; then
@@ -23,6 +40,8 @@ setup () {
       ln -s $BASEDIR/dotfiles/$file ~/
     fi
   done
+  add_source_bash_profile
+
   if [ ! ~/.git-completion.bash ]; then
     curl -k https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
   fi
@@ -65,6 +84,7 @@ clean () {
     echo "Removing ~/$file"
     rm -f ~/$file
   done
+  remove_source_bash_profile
   files=("$HOME/.pgpass" "$HOME/.boto" "$HOME/.ssh/rc")
   for file in "${files[@]}"
   do
