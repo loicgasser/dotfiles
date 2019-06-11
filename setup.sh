@@ -64,14 +64,6 @@ setup () {
     echo "Setting up pathogen ..."
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
   fi
-
-  NODE_INSTALLED=$(program_is_installed node)
-  if [ ! -d ~/.vim/bundle/syntastic ] && [ $NODE_INSTALLED = "1" ]; then
-    echo "Setting up syntastic ..."
-    cd ~/.vim/bundle
-    git clone https://github.com/scrooloose/syntastic.git
-    npm install jshint
-  fi
 }
 
 clean () {
