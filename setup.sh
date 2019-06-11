@@ -64,6 +64,12 @@ setup () {
     echo "Setting up pathogen ..."
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
   fi
+
+  if [ ! -d ~/vim/bundle/typescript-vim ]; then
+    echo "Setting up syntax for typescript in vim"
+    cd ~/.vim/bundle
+    git clone https://github.com/leafgarland/typescript-vim.git
+  fi
 }
 
 clean () {
