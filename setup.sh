@@ -70,6 +70,12 @@ setup () {
     cd ~/.vim/bundle
     git clone https://github.com/leafgarland/typescript-vim.git
   fi
+
+  mkdir -p ~/.vim/ftplugin
+  if [! -f ~/.vim/ftplugin/python.vim ]; then
+    echo "Adding python vim file ..."
+    cp -f .vim/ftplugin/python.vim ~/.vim/ftplugin/python.vim
+  fi
 }
 
 clean () {
