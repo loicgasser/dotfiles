@@ -1,0 +1,19 @@
+{
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.fontFamily": "Ubuntu mono",
+  "editor.tabSize": 2,
+  "[python]": {
+    "editor.tabSize": 4
+  },
+  "editor.fontSize": 12,
+  "files.exclude": {
+      "**/.git*": false,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/.DS_Store": true,
+      "**/.tags*": true,
+	    "**/.pyc": true,
+      "**/__pycache__": true,
+      "**/.venv": true
+  }
+}

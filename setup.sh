@@ -74,7 +74,13 @@ setup () {
   mkdir -p ~/.vim/ftplugin
   if [! -f ~/.vim/ftplugin/python.vim ]; then
     echo "Adding python vim file ..."
-    cp -f .vim/ftplugin/python.vim ~/.vim/ftplugin/python.vim
+    cp -f vim/ftplugin/python.vim ~/.vim/ftplugin/python.vim
+  fi
+
+  mkdir -p ~/.config/Code/User/
+  if [! -f ~/.config/Code/User/settings.json ]; then
+    echo "Adding user settings for vscode..."
+    cp -f vscode/settings.json ~/.config/Code/User/settings.json
   fi
 }
 
