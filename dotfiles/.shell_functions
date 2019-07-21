@@ -32,11 +32,9 @@ function decryptFolder(){
   rm ${tarname}
 }
 
-
 function pathAppend(){
 export PATH="$PATH:${1}"
 }
-
 
 function pathPrepend(){
 export PATH="${1}:$PATH"
@@ -45,4 +43,3 @@ export PATH="${1}:$PATH"
 function pathEraseFrom(){
 export PATH=$( echo $PATH  | awk 'BEGIN{FS=":"}{for (i=1;i<=NF;i++){if($i != toErase){printf("%s",$i);if (i!=NF){printf(":")}}}}' toErase="${1}" )
 }
-
