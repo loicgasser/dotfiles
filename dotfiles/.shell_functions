@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+function encryptFile(){
+  if [[ ! 1 -eq $# ]] ; then usage_encrypt $0 ; return ; fi
+  openssl enc -a -bf -in ${1} -out ${1}.bfe
+  if [[ ! 0 -eq $? ]] ; then return 1 ; fi
+  rm ${1}
+}
+
+function decryptFile(){
+  if [[ ! 1 -eq $# ]] ; then usage_encrypt $0 ; return ; fi
+  if [[ ! "bfe" = "$(get_file_ext ${1})" ]] ; then echo "unsupported extension: $(get_file_ext ${1})" ; return 1 ; fi
+  outfile=$(get_file_basename ${1})
+  openssl enc -a -d -bf -in ${1} -out ${outfile}
+  if [[ ! 0 -eq $? ]] ; then return 1 ; fi
+  rm ${1}
+}
+
+function encryptFolder(){
+  if [[ ! 1 -eq $# ]] ; then usage_encrypt $0 ; return ; fi
+  tar -czf ${1}.tar.gz ${1}
+  encryptFile ${1}.tar.gz
+  if [[ ! 0 -eq $? ]] ; then return 1 ; fi
+  rm -r ${1}
+}
+
+function decryptFolder(){
+  if [[ ! 1 -eq $# ]] ; then usage_encrypt $0 ; return ; fi
+  decryptFile $1
+  tarname=$(get_file_basename ${1})
+  tar -xzf ${tarname}
+  if [[ ! 0 -eq $? ]] ; then return 1 ; fi
+  rm ${tarname}
+}
+
+
+function pathAppend(){
+export PATH="$PATH:${1}"
+}
+
+
+function pathPrepend(){
+export PATH="${1}:$PATH"
+}
+
+function pathEraseFrom(){
+export PATH=$( echo $PATH  | awk 'BEGIN{FS=":"}{for (i=1;i<=NF;i++){if($i != toErase){printf("%s",$i);if (i!=NF){printf(":")}}}}' toErase="${1}" )
+}
+
