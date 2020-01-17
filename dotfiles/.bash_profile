@@ -24,6 +24,7 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias cd.='cd ..'
 alias cd..='cd ..'
+alias tf='terraform'
 
 ### Custom bar
 parse_git_branch()
