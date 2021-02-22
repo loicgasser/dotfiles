@@ -65,6 +65,18 @@ setup () {
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
   fi
 
+  mkdir -p ~/.config/Code/User/
+  if [ ! -f ~/.config/Code/User/settings.json ]; then
+    echo "Adding user settings for vscode..."
+    cp -f vscode/settings.json ~/.config/Code/User/settings.json
+  fi
+
+  mkdir -p ~/.vim/ftplugin
+  if [ ! -f ~/.vim/ftplugin/python.vim ]; then
+    echo "Adding python vim file ..."
+    cp -f vim/ftplugin/python.vim ~/.vim/ftplugin/python.vim
+  fi
+ 
   ## Typescript
   if [ ! -d ~/vim/bundle/typescript-vim ]; then
     echo "Setting up syntax for typescript in vim"
@@ -78,18 +90,6 @@ setup () {
     echo "Setting up syntax for terrform."
     git clone https://github.com/hashivim/vim-terraform.git ~/.vim/pack/plugins/start/vim-terraform
   fi
-
-  mkdir -p ~/.vim/ftplugin
-  if [! -f ~/.vim/ftplugin/python.vim ]; then
-    echo "Adding python vim file ..."
-    cp -f vim/ftplugin/python.vim ~/.vim/ftplugin/python.vim
-  fi
-
-  mkdir -p ~/.config/Code/User/
-  if [! -f ~/.config/Code/User/settings.json ]; then
-    echo "Adding user settings for vscode..."
-    cp -f vscode/settings.json ~/.config/Code/User/settings.json
-  fi
 }
 
 clean () {
@@ -99,7 +99,7 @@ clean () {
     rm -f ~/$file
   done
   remove_source_bash_profile
-  files=("$HOME/.pgpass" "$HOME/.boto" "$HOME/.ssh/rc")
+  files=("$HOME/.pgpass" "$HOME/.boto" "$HOME/.ssh/rc" "$HOME/.config/Code/User/settings.json")
   for file in "${files[@]}"
   do
     if [ -f $file ]; then
