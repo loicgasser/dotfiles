@@ -28,6 +28,13 @@ remove_source_bash_profile () {
   fi
 }
 
+# https://github.com/akinomyoga/ble.sh
+add_ble_sh () {
+  curl -L https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz | tar xJf -
+  bash ble-nightly/ble.sh --install ~/.local/share
+  echo 'source ~/.local/share/blesh/ble.sh' >> ~/.bashrc
+}
+
 setup () {
   echo 'Hi bro, I am gona tweak your home a notch, but not too much :D !!'
   echo "Working from $BASEDIR ..."
@@ -76,7 +83,7 @@ setup () {
     echo "Adding python vim file ..."
     cp -f vim/ftplugin/python.vim ~/.vim/ftplugin/python.vim
   fi
- 
+
   ## Typescript
   if [ ! -d ~/vim/bundle/typescript-vim ]; then
     echo "Setting up syntax for typescript in vim"
@@ -89,6 +96,11 @@ setup () {
   if [ ! -d ~/.vim/pack/plugins/start/vim-terraform ]; then
     echo "Setting up syntax for terrform."
     git clone https://github.com/hashivim/vim-terraform.git ~/.vim/pack/plugins/start/vim-terraform
+  fi
+
+  if [ ! -d ~/.local/share/blesh/ble.sh ]; then
+    echo "Setting up ble.sh"
+    add_ble_sh
   fi
 }
 

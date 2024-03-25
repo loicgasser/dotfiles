@@ -39,3 +39,8 @@ YELLOW='\e[0;33m'     # Yellow
 WHITE='\e[0;37m'      # White
 RESET='\e[0m'         # Text Reset
 export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]${YELLOW}\$(parse_git_branch) ${WHITE}\n$ "
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
